@@ -1,0 +1,59 @@
+﻿@page "/Systems/{SystemID}/RoutingTable"
+
+    <Menu Mode=MenuMode.Horizontal>
+        <MenuItem Key="app" RouterLink=@(String.Format("/Systems/{0}/RoutingTable", SystemID)) RouterMatch="NavLinkMatch.All">
+            <Icon Type="appstore" Theme="outline"></Icon>
+            Routing Table
+        </MenuItem>
+    </Menu>
+
+    <h3>RoutingTable : @SystemID</h3>
+
+    <h3>RoutingTable</h3>
+
+@if (RTRows is null)
+{
+    <p>Loading</p>
+}else
+{
+<Table @ref="table"
+       TItem="RT_Row"
+       DataSource="@RTRows">
+    <Column @bind-Field="@context.LocationID" Sortable />
+    <Column @bind-Field="@context.Destinations">
+        <Dropdown>
+            <Overlay>
+                <Menu>
+                    @foreach (string destination in context.Destinations)
+                        {
+                        <MenuItem>
+                            <a class="ant-dropdown-link"
+                               @onclick:preventDefault
+                               @onclick='() => upDateDefaultDestinationAsync(destination,context)'>
+                                @destination
+                            </a>
+                        </MenuItem>
+                        }
+                </Menu>
+            </Overlay>
+            <ChildContent>
+                @context.DefaultDestination
+            </ChildContent>
+        </Dropdown>
+        <Icon Type="down" />
+    </Column>
+    <Column @bind-Field="@context.Status" Sortable />
+    <Column @bind-Field="@context.CurrentFulfilment" Sortable />
+    <Column @bind-Field="@context.MaximumFulfilment" Sortable />
+    <Column @bind-Field="@context.LaneCheckEnabled" Sortable>
+        <a @onclick='() => upCheckEnabledAsync("LaneCheckEnabled",context.LaneCheckEnabled,context)'>@context.LaneCheckEnabled
+        </a>
+    </Column>
+    <Column @bind-Field="@context.ProfileCheckEnabled" Sortable>
+        <a @onclick='() => upCheckEnabledAsync("ProfileCheckEnabled",context.ProfileCheckEnabled,context)'>@context.ProfileCheckEnabled
+        </a>
+    </Column>
+</Table>
+}
+
+    

@@ -1,0 +1,11 @@
+﻿@page "/Systems/{SystemID}"
+
+
+<Menu Mode=MenuMode.Horizontal>
+    <MenuItem Key="app" RouterLink=@(String.Format("/Systems/{0}/RoutingTable", SystemID)) RouterMatch="NavLinkMatch.All">
+        <Icon Type="appstore" Theme="outline"></Icon>
+        Routing Table
+    </MenuItem>    
+</Menu>
+
+<h3>SystemDetails : @SystemID</h3>

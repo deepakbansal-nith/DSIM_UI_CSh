@@ -1,0 +1,42 @@
+﻿@inherits LayoutComponentBase
+
+<Layout Class="layout">
+    <Header>
+        <div class="logo"><a href="/"><img src="/public/logo.png" alt="Dematic Logo" height="60"></a></div>        
+        <Menu Theme="MenuTheme.Dark" Mode="MenuMode.Horizontal">
+            @foreach (string system in systemList)
+            {
+                <MenuItem Key=@systemList.IndexOf(system).ToString() RouterLink=@(String.Format("/Systems/{0}", system)) RouterMatch="NavLinkMatch.All">@system</MenuItem>
+            }
+        </Menu>        
+    </Header>
+    <Content Style="padding: 0 50px;">
+        <Breadcrumb Style="margin: 16px 0;">
+            <BreadcrumbItem>Home</BreadcrumbItem>
+            <BreadcrumbItem>List</BreadcrumbItem>
+            <BreadcrumbItem>App</BreadcrumbItem>
+        </Breadcrumb>
+        <div class="site-layout-content">@Body</div>
+    </Content>
+    <Footer Style="text-align: center; ">©2022 Dematic Pty Ltd</Footer>
+</Layout>
+
+<style>
+    .site-layout-content {
+        background: #fff;
+        padding: 24px;
+        min-height: 280px;
+    }
+
+    #components-layout-demo-top .logo {
+        width: 120px;
+        height: 31px;
+        background: rgba(255, 255, 255, 0.2);
+        margin: 16px 24px 16px 0;
+        float: left;
+    }
+
+    .site-layout-content {
+        min-height:700px;
+    }
+</style>
